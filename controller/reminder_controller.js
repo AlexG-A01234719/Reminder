@@ -42,25 +42,22 @@ let remindersController = {
 
   update: (req, res) => {
     let reminderToFind = req.params.id;
-    let searchResult = database.cindy.reminders.find(function (reminder) {
-      reminder.id == reminderToFind;
+    database.cindy.reminders.find(function (reminder) {
+      if (reminder.id == reminderToFind) {
+        reminder.title = req.body.title;
+        reminder.description = req.body.description;
+        reminder.completed = req.body.completed == "true";
+      }
     });
-    let reminder = {
-      id: req.params.id,
-      title: req.body.title,
-      description: req.body.description,
-      completed: req.body.completed,
-    };
-    database.cindy.reminders.filter(data => data.id != searchResult)
-    database.cindy.reminders.push(reminder);
+
     res.redirect("/reminders");
   },
 
   delete: (req, res) => {
     let reminderToFind = req.params.id;
-    let searchResult = database.cindy.reminders.find(function (reminder) {
-      return reminder.id == reminderToFind;
-    });
+    let foundIndex = database.cindy.reminders.findIndex( reminder => reminder.id == reminderToFind );
+    database.cindy.reminders.splice(foundIndex, 1);
+    res.redirect("/reminders");
   },
 };
 
