@@ -20,7 +20,8 @@
     "express-ejs-layouts": "^2.5.1",
     "method-override": "^2.3.7",
     "mongoose": "^5.13.2",
-    "nodemon": "^2.0.9"
+    "nodemon": "^2.0.9",
+    "require-stack": "^1.0.2"
   },
   "description": ""
 }
