@@ -1,4 +1,4 @@
-const userModel = require("../database").userModel;
+const { userModel, Database } = require("../database")
 
 const getUserByEmailIdAndPassword = (email, password) => {
   let user = userModel.findOne(email);
@@ -27,12 +27,10 @@ function getUserbyGitHubIdOrCreate(profile) {
   if (user) {
     return user;
   }
-  userModel.Database[profile.name] = {
-    id: profile.id,
-    name: profile.username,
-    email: profile.emails[0].value,
-    reminders: []
-}}
+  let userObj = { id: profile.id, name: profile.username, email: profile.emails[0].value, reminders: [] }
+  Database[profile.username] = userObj;
+  return userObj;
+}
 
 module.exports = {
   getUserByEmailIdAndPassword,
