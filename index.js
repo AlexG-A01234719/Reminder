@@ -76,6 +76,25 @@ app.post(
   })
 );
 
+app.get(
+  "/github",
+  passport.authenticate("github", {
+    successRedirect: "/reminders",
+    failureRedirect: "/login"
+  })
+)
+
+app.get(
+  "/auth/github/callback",
+  passport.authenticate("github", {
+    failureRedirect: "/login"
+  }),
+  function (req, res) {
+    
+    res.redirect("/reminders")
+  }
+)
+
 //==== added this code====
 app.get("/logout", (req, res) => {
   req.logout();
@@ -83,8 +102,8 @@ app.get("/logout", (req, res) => {
   res.redirect("/login");
 });
 
-app.listen(3005, function () {
+app.listen(3000, function () {
   console.log(
-    "Server running. Visit: localhost:3005/reminders in your browser 🚀"
+    "Server running. Visit: localhost:3000/reminders in your browser 🚀"
   );
 });

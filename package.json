@@ -26,6 +26,8 @@
     "mongoose": "^5.13.2",
     "nodemon": "^2.0.9",
     "passport": "^0.4.1",
+    "passport-github": "^1.1.0",
+    "passport-github2": "^0.1.12",
     "passport-local": "^1.0.0",
     "request": "^2.88.2"
   }
