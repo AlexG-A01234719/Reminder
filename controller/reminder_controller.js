@@ -1,8 +1,13 @@
-let database = require("../database");
+let database = require("../database").Database;
 
 let remindersController = {
   list: (req, res) => {
-    res.render("reminder/index", { reminders: database.cindy.reminders });
+    // added this code ⭐️
+    const currentUser = req.user;
+    res.render("reminder/index", {
+      reminders: database.cindy.reminders,
+      currentUser,
+    });
   },
 
   new: (req, res) => {
@@ -55,7 +60,9 @@ let remindersController = {
 
   delete: (req, res) => {
     let reminderToFind = req.params.id;
-    let foundIndex = database.cindy.reminders.findIndex( reminder => reminder.id == reminderToFind );
+    let foundIndex = database.cindy.reminders.findIndex(
+      (reminder) => reminder.id == reminderToFind
+    );
     database.cindy.reminders.splice(foundIndex, 1);
     res.redirect("/reminders");
   },
