@@ -1,8 +1,12 @@
 let database = require("../database").Database;
+const fetch = require('node-fetch');
+
+
 
 let remindersController = {
-  list: (req, res) => {
-    // added this code ⭐️
+  list: async (req, res) => {
+    // Talk to unspash
+
     const currentUser = req.user;
     res.render("reminder/index", {
       reminders: currentUser.reminders,
@@ -71,6 +75,15 @@ let remindersController = {
     currentUser.reminders.splice(foundIndex, 1);
     res.redirect("/reminders");
   },
+
+  lucky: (req, res) => {
+    const client_id = process.env.UNSPLASH_KEY;
+    fetch(`https://api.unsplash.com/photos/random?client_id=${client_id}`)
+      .then((res) => res.json())
+      .then((json) => res.redirect(json.urls.regular));
+  }
 };
+
+
 
 module.exports = remindersController;
